@@ -1,10 +1,4 @@
-from detection.logger import logging
-from detection.exception import AppException
-import sys
+from detection.pipeline.training_pipeline import TrainPipeline
 
-logging.info("Welcome to my custom logger")
-
-try:
-    a = 33/"a"
-except Exception as error:
-    raise AppException(error, sys)
+obj = TrainPipeline()
+obj.run_pipeline()
