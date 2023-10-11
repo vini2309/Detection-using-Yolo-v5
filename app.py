@@ -54,7 +54,7 @@ def predictRoute():
 
 
 
-@app.route("/live", methods=['GET'])
+@app.route("/live", methods=['GET'])  #for live detection
 @cross_origin()
 def predictLive():
     try:
