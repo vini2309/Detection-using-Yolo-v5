@@ -137,4 +137,7 @@ docker push chickenapp.azurecr.io/chicken:latest
 3. Launch the Web App Server in Azure
 4. Pull the Docker image from the container registry to Web App server and run
 
-#test
+#to terminate/delete the AWS deployment
+1)go to instance and select the instance and from top select instance state and click on terminate instance
+2)go to ECR repository and select the repository you want to delete
+3)go to IAM user and delete the required user
