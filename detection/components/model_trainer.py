@@ -1,4 +1,4 @@
-import os,sys
+import os,sys,shutil
 import yaml
 from detection.utils.main_utils import read_yaml_file
 from detection.logger import logging
@@ -23,8 +23,10 @@ class ModelTrainer:
 
         try:
             logging.info("Unzipping data")
-            os.system("unzip data.zip")
-            os.system("rm data.zip")
+            #os.system("unzip data.zip")
+            shutil.unpack_archive('data.zip')
+            #os.system("rm data.zip")
+            os.remove('data.zip')
 
             with open("data.yaml", 'r') as stream:
                 num_classes = str(yaml.safe_load(stream)['nc'])
@@ -41,14 +43,19 @@ class ModelTrainer:
                 yaml.dump(config, f)
 
             os.system(f"cd yolov5/ && python train.py --img 416 --batch {self.model_trainer_config.batch_size} --epochs {self.model_trainer_config.no_epochs} --data ../data.yaml --cfg ./models/custom_yolov5s.yaml --weights {self.model_trainer_config.weight_name} --name yolov5s_results  --cache")
-            os.system("cp yolov5/runs/train/yolov5s_results/weights/best.pt yolov5/")
+            #os.system("cp yolov5/runs/train/yolov5s_results/weights/best.pt yolov5/")
+            shutil.copy('yolov5/runs/train/yolov5s_results/weights/best.pt', 'yolov5/') 
             os.makedirs(self.model_trainer_config.model_trainer_dir, exist_ok=True)
-            os.system(f"cp yolov5/runs/train/yolov5s_results/weights/best.pt {self.model_trainer_config.model_trainer_dir}/")
+            shutil.copy("yolov5/runs/train/yolov5s_results/weights/best.pt", "artifacts/model_trainer/")
            
-            os.system("rm -rf yolov5/runs")
-            os.system("rm -rf train")
-            os.system("rm -rf valid")
-            os.system("rm -rf data.yaml")
+            #os.system("rm -rf yolov5/runs")
+            #os.system("rm -rf train")
+            #os.system("rm -rf valid")
+            #os.system("rm -rf data.yaml")
+            shutil.rmtree('yolov5/runs')
+            shutil.rmtree('train')
+            shutil.rmtree('valid')
+            os.remove('data.yaml')
 
             model_trainer_artifact = ModelTrainerArtifact(
                 trained_model_file_path="yolov5/best.pt",

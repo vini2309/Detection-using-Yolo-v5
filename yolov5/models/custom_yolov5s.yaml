@@ -155,5 +155,5 @@ head:
   - Detect
   - - nc
     - anchors
-nc: 13
+nc: 5
 width_multiple: 0.5

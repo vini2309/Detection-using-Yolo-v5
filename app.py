@@ -1,4 +1,4 @@
-import sys,os
+import sys,os, shutil
 from detection.pipeline.training_pipeline import TrainPipeline
 from detection.utils.main_utils import decodeImage, encodeImageIntoBase64
 from flask import Flask, request, jsonify, render_template,Response
@@ -39,7 +39,8 @@ def predictRoute():
 
         opencodedbase64 = encodeImageIntoBase64("yolov5/runs/detect/exp/inputImage.jpg")
         result = {"image": opencodedbase64.decode('utf-8')}
-        os.system("rm -rf yolov5/runs")
+        shutil.rmtree('yolov5/runs')
+        #os.system("rm -rf yolov5/runs")
 
     except ValueError as val:
         print(val)
@@ -59,7 +60,8 @@ def predictRoute():
 def predictLive():
     try:
         os.system("cd yolov5/ && python detect.py --weights best.pt --img 416 --conf 0.5 --source 0")
-        os.system("rm -rf yolov5/runs")
+        shutil.rmtree('yolov5/runs')
+        #os.system("rm -rf yolov5/runs")
         return "Camera starting!!" 
 
     except ValueError as val:

@@ -120,15 +120,15 @@ open up you local host and port
 
 ## Save pass:
 
-s3cEZKH5yytiVnJ3h+eI3qhhzf9q1vNwEi6+q+WGdd+ACRCZ7JD6
+qzmeCwPlo8wlPjsu/kNBJ6a9PLW3toVzvWvSKFPV9m+ACRC1c6II
 
 ## Run from terminal:
 
-docker build -t chickenapp.azurecr.io/chicken:latest .
+docker build -t wastedetection.azurecr.io/waste:latest .
 
-docker login chickenapp.azurecr.io
+docker login wastedetection.azurecr.io
 
-docker push chickenapp.azurecr.io/chicken:latest
+docker push wastedetection.azurecr.io/waste:latest
 
 ## Deployment Steps:
 
